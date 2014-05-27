@@ -6,14 +6,15 @@ package
 	import flash.display.StageDisplayState;
 	import flash.display.StageOrientation;
 	import flash.display.StageScaleMode;
+	import flash.geom.Rectangle;
 	
+	import core.MainContainer;
+	import core.managers.ScreensManager;
 	import core.screens.Menu;
 	
 	import org.osflash.signals.Signal;
 	
 	import starling.core.Starling;
-	import core.managers.ScreensManager;
-	import core.MainContainer;
 	
 	[SWF(frameRate="60", backgroundColor="#000000")]
 	public class TapBoxing extends Sprite
@@ -62,7 +63,7 @@ package
 			
 			Starling.multitouchEnabled = true;
 			
-			_starling = new Starling(MainContainer, stage);
+			_starling = new Starling(MainContainer, stage, new Rectangle(0, 0, stageWidth, stageHeight));
 			_starling.simulateMultitouch = true;
 			_starling.start();
 		}
