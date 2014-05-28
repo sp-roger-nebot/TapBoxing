@@ -2,6 +2,8 @@ package core.screens
 {
 	
 	import core.MainContainer;
+	import core.managers.ParticlesManager;
+	import core.particles.Particle;
 	
 	import starling.display.Quad;
 	import starling.display.Sprite;
@@ -12,7 +14,7 @@ package core.screens
 
 	public class Game extends Sprite
 	{
-		private var _winPulsationsDiff:int = 10;
+		private var _winPulsationsDiff:int = 50;
 		
 		private var _redPusher:Quad;
 		private var _bluePusher:Quad;
@@ -56,6 +58,7 @@ package core.screens
 			if (touch)
 			{
 				_bluePulsations++;
+				ParticlesManager.api.addParticleAt(new Particle("+1"), touch.globalX, touch.globalY);
 			}
 		}
 		
@@ -65,6 +68,7 @@ package core.screens
 			if (touch)
 			{
 				_redPulsations++;
+				ParticlesManager.api.addParticleAt(new Particle("+1"), touch.globalX, touch.globalY);
 			}	
 		}
 		
@@ -85,19 +89,20 @@ package core.screens
 		
 		private function checkForGameFinish():Boolean
 		{
-			var someoneWins:Boolean;
+			var blueWins:Boolean = false;
+			var redWins:Boolean = false;
 			var dif:int = _bluePulsations - _redPulsations;
 			if(dif >= _winPulsationsDiff)
 			{
-				someoneWins = true;
+				blueWins = true;
 				trace("Blue win!");
 			}
 			else if(dif <= -_winPulsationsDiff)
 			{
-				someoneWins = true;
+				redWins = true;
 				trace("Red win!");
 			}
-			return someoneWins;
+			return blueWins || redWins;
 		}
 		
 		private function onGameOver():void
